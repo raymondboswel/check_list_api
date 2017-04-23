@@ -1,4 +1,4 @@
-defmodule CheckListApi.Repo.Migrations.CreateProject do
+defmodule CheckListApi.Repo.Migrations.AddProjectUniqueConstraint do
   use Ecto.Migration
 
   def change do

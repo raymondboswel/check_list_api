@@ -25,5 +25,7 @@ defmodule CheckListApi.Router do
     get "/projects", ProjectController, :index
     post "/projects", ProjectController, :create
     delete "/projects", ProjectController, :delete
+
+    get "/projects/:id/checklists", ProjectController, :checklists
   end
 end

@@ -1,9 +1,9 @@
-defmodule CheckListApi.Project do
+defmodule CheckListApi.Checklist do
   use CheckListApi.Web, :model
 
-  schema "projects" do
+  schema "checklists" do
     field :name, :string
-    has_many :videos, HelloPhoenix.Video
+    belongs_to :project, CheckListApi.Project
     timestamps()
   end
 

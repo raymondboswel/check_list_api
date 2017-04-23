@@ -9,4 +9,11 @@ defmodule CheckListApi.ProjectView do
     project
   end
 
+  def render("checklists.json", %{checklists: checklists}) do
+    render_many(checklists, CheckListApi.ProjectView, "checklist.json")
+  end
+
+  def render("checklist.json", %{checklist: checklist}) do
+    checklist
+  end
 end

@@ -1,5 +1,6 @@
 defmodule CheckListApi.ProjectController do
   alias CheckListApi.Project
+  alias CheckListApi.Checklist
   alias CheckListApi.Repo
   use CheckListApi.Web, :controller
 
@@ -33,6 +34,17 @@ defmodule CheckListApi.ProjectController do
         |> send_resp(500, "")
     end
   end
+
+def checklists(conn, %{"id" => id}) do
+  checklists = Repo.get_by(Checklist, project_id: id)
+  case checklists do
+    nil ->
+      render conn, "checklists.json", checklists: []
+    checklists ->
+      render conn, "checklists.json", checklists: checklists  
+  end
+  
+end
 
 
 end
