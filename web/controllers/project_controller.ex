@@ -5,7 +5,7 @@ defmodule CheckListApi.ProjectController do
 
   def index(conn, _params) do
     query = from p in Project,
-     select: p.name
+      select: %{"id" => p.id, "name" => p.name}
     projects = Repo.all(query)
     render conn, "index.json", projects: projects
   end
