@@ -3,7 +3,7 @@ defmodule CheckListApi.Project do
 
   schema "projects" do
     field :name, :string
-    has_many :videos, HelloPhoenix.Video
+    has_many :checklists, CheckListApi.Checklist
     timestamps()
   end
 

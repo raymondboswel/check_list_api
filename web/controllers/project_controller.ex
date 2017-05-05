@@ -2,12 +2,15 @@ defmodule CheckListApi.ProjectController do
   alias CheckListApi.Project
   alias CheckListApi.Checklist
   alias CheckListApi.Repo
+  require Logger
   use CheckListApi.Web, :controller
 
   def index(conn, _params) do
-    query = from p in Project,
-      select: %{"id" => p.id, "name" => p.name}
-    projects = Repo.all(query)
+    query = from p in Project
+      
+      
+    projects = Project |> Repo.all |> Repo.preload([:checklists])  
+    Logger.debug "Projects: #{inspect projects}"
     render conn, "index.json", projects: projects
   end
 
@@ -35,16 +38,37 @@ defmodule CheckListApi.ProjectController do
     end
   end
 
-def checklists(conn, %{"id" => id}) do
-  checklists = Repo.get_by(Checklist, project_id: id)
-  case checklists do
-    nil ->
-      render conn, "checklists.json", checklists: []
-    checklists ->
-      render conn, "checklists.json", checklists: checklists  
+  def checklists(conn, %{"id" => id}) do
+    checklists = Repo.get_by(Checklist, project_id: id)
+    case checklists do
+      nil ->
+        render conn, "checklists.json", checklists: []
+      checklists ->
+        render conn, "checklists.json", checklists: checklists  
+    end
   end
-  
-end
 
+  def new_checklist(conn, %{"id" => id, "name" => name}) do
+    checklist = %{name: name}
+    changeset = Checklist.changeset(%Checklist{}, checklist)
+
+    project = get_project(id)
+    project_with_checklist = Ecto.Changeset.put_assoc(project, :checklists, [changeset])
+    project = Repo.insert!(project_with_checklist)
+
+    json conn, %{"id": id, "checklists": project.checklists} 
+
+    # case Repo.insert(changeset) do
+    #   {:ok, project} ->
+    #   json conn, %{"id": project.id}
+    #   {:error, changeset} ->
+    #     conn
+    #       |> send_resp(500, "")
+    # end
+  end
+
+  def get_project(id) do
+    CheckListApi.Repo.get(Project, id)
+  end
 
 end
