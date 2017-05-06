@@ -38,22 +38,7 @@ defmodule CheckListApi.ProjectController do
     end
   end
 
-  def checklists(conn, %{"id" => id}) do
-    checklists = Repo.get_by(Checklist, project_id: id)
-    case checklists do
-      nil ->
-        render conn, "checklists.json", checklists: []
-      checklists ->
-        render conn, "checklists.json", checklists: checklists  
-    end
-  end
 
-  def new_checklist(conn, %{"id" => project_id, "name" => name}) do    
-    changeset = Checklist.changeset(%Checklist{}, %{name: name, project_id: project_id})    
-    checklist = Repo.insert!(changeset)
-    Logger.debug "Checklist: #{inspect checklist}"
-    json conn, %{"project_id" => project_id, "checklist" => %{"name" => checklist.name, "id" => checklist.id}} 
-  end
 
   def get_project(id) do
     CheckListApi.Repo.get(Project, id)
