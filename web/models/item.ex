@@ -4,6 +4,7 @@ defmodule CheckListApi.Item do
   schema "items" do
     field :name, :string
     field :completed, :boolean
+    field :sequence_number, :integer
     belongs_to :checklist, CheckListApi.Checklist
     timestamps()
   end
@@ -13,7 +14,7 @@ defmodule CheckListApi.Item do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :checklist_id, :completed])
+    |> cast(params, [:name, :checklist_id, :completed, :sequence_number])
     |> validate_required([:name])
   end
 end

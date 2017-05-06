@@ -16,8 +16,8 @@ defmodule CheckListApi.ItemController do
     end
   end
 
-  def new_item(conn, %{"checklist_id" => checklist_id, "name" => name, "completed" => completed}) do    
-    changeset = Item.changeset(%Item{}, %{name: name, completed: completed, checklist_id: checklist_id})    
+  def new_item(conn, %{"checklist_id" => checklist_id, "name" => name, "completed" => completed} = params) do    
+    changeset = Item.changeset(%Item{}, params)    
     item = Repo.insert!(changeset)
     Logger.debug "Item: #{inspect item}"
     json conn, %{"id" => item.id} 
@@ -37,9 +37,17 @@ defmodule CheckListApi.ItemController do
     end
   end
 
-  def update_item(conn, id) do
-    conn
-        |> send_resp(200, Integer.to_string(id))
+  def update_item(conn, %{"id" => id } = params) do
+    item = Repo.get(Item, id)
+    changeset = CheckListApi.Item.changeset(item, params)
+    case CheckListApi.Repo.update(changeset) do
+        {:ok, struct} ->
+            conn
+                |> send_resp(200, "")
+        {:error, changeset} ->
+            conn
+                |> send_resp(500, "")
+    end
   end
 
 end

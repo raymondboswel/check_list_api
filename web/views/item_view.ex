@@ -9,6 +9,6 @@ defmodule CheckListApi.ItemView do
 
   def render("item.json", %{item: item}) do
     Logger.debug "View: Item: #{inspect item}"
-    %{"id" => item.id, "name" => item.name, "completed" => item.completed}
+    %{"id" => item.id, "name" => item.name, "completed" => item.completed, "sequence_number" => item.sequence_number}
   end
 end
