@@ -29,5 +29,10 @@ defmodule CheckListApi.Router do
     get "/projects/:id/checklists", ChecklistController, :checklists
     post "/projects/:id/checklists", ChecklistController, :new_checklist
     delete "/checklists/:id", ChecklistController, :delete_checklist
+
+    get "/checklists/:checklist_id/items", ItemController, :items
+    post "/checklists/:checklist_id/items", ItemController, :new_item
+    delete "/items/:id", ItemController, :delete_item
+    put "/items/:id", ItemController, :update_item
   end
 end

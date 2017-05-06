@@ -38,8 +38,6 @@ defmodule CheckListApi.ProjectController do
     end
   end
 
-
-
   def get_project(id) do
     CheckListApi.Repo.get(Project, id)
   end

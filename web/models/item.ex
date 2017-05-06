@@ -1,10 +1,10 @@
-defmodule CheckListApi.Checklist do
+defmodule CheckListApi.Item do
   use CheckListApi.Web, :model
 
-  schema "checklists" do
+  schema "items" do
     field :name, :string
-    belongs_to :project, CheckListApi.Project
-    has_many :items, CheckListApi.Item
+    field :completed, :boolean
+    belongs_to :checklist, CheckListApi.Checklist
     timestamps()
   end
 
@@ -13,8 +13,7 @@ defmodule CheckListApi.Checklist do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :project_id])
+    |> cast(params, [:name, :checklist_id, :completed])
     |> validate_required([:name])
-    |> unique_constraint(:name)
   end
 end
