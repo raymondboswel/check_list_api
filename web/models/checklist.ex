@@ -12,7 +12,7 @@ defmodule CheckListApi.Checklist do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name])
+    |> cast(params, [:name, :project_id])
     |> validate_required([:name])
     |> unique_constraint(:name)
   end

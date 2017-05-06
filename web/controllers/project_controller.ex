@@ -48,23 +48,11 @@ defmodule CheckListApi.ProjectController do
     end
   end
 
-  def new_checklist(conn, %{"id" => id, "name" => name}) do
-    checklist = %{name: name}
-    changeset = Checklist.changeset(%Checklist{}, checklist)
-
-    project = get_project(id)
-    project_with_checklist = Ecto.Changeset.put_assoc(project, :checklists, [changeset])
-    project = Repo.insert!(project_with_checklist)
-
-    json conn, %{"id": id, "checklists": project.checklists} 
-
-    # case Repo.insert(changeset) do
-    #   {:ok, project} ->
-    #   json conn, %{"id": project.id}
-    #   {:error, changeset} ->
-    #     conn
-    #       |> send_resp(500, "")
-    # end
+  def new_checklist(conn, %{"id" => project_id, "name" => name}) do    
+    changeset = Checklist.changeset(%Checklist{}, %{name: name, project_id: project_id})    
+    checklist = Repo.insert!(changeset)
+    Logger.debug "Checklist: #{inspect checklist}"
+    json conn, %{"project_id" => project_id, "checklist" => %{"name" => checklist.name, "id" => checklist.id}} 
   end
 
   def get_project(id) do
