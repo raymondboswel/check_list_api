@@ -36,6 +36,7 @@ defmodule CheckListApi.Mixfile do
      {:cors_plug, "~> 1.2"},
      {:mariaex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
+     {:guardian, "~> 0.14"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"}]
