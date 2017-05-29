@@ -8,6 +8,10 @@ defmodule CheckListApi.UserView do
     render_many(users, CheckListApi.UserView, "user.json")
   end
 
+  def render("sign_in.json", %{user: user, jwt: jwt, exp: exp}) do
+    %{"user_id" => user.id, "jwt" => jwt, "exp" => exp}
+  end
+
   def render("user.json", %{user: user}) do
     Logger.debug "View: User: #{inspect user}"
     projects = ProjectView.render("projects.json", %{projects: user.projects})

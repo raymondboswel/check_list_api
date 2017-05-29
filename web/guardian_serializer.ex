@@ -1,4 +1,4 @@
-defmodule MyApp.GuardianSerializer do
+defmodule CheckListApi.GuardianSerializer do
   @behaviour Guardian.Serializer
 
   alias CheckListApi.Repo

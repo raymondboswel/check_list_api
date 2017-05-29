@@ -30,7 +30,7 @@ config :guardian, Guardian,
   allowed_drift: 2000,
   verify_issuer: true, # optional
   secret_key: "d3tz6o3UkRYED94cNMXGBS3wmP07ajRzv+4SaXRY5RFsHwmph5J9UjPmTVOp0SUc",
-  serializer: MyApp.GuardianSerializer
+  serializer: CheckListApi.GuardianSerializer
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
