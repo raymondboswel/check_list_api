@@ -4,6 +4,7 @@ defmodule CheckListApi.Project do
   schema "projects" do
     field :name, :string
     has_many :checklists, CheckListApi.Checklist
+    belongs_to :user, CheckListApi.User
     timestamps()
   end
 

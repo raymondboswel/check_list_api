@@ -19,7 +19,7 @@ defmodule CheckListApi.Router do
     get "/", PageController, :index
   end
 
-  
+
   scope "/api", CheckListApi do
     pipe_through :api
     get "/projects", ProjectController, :index
@@ -34,5 +34,8 @@ defmodule CheckListApi.Router do
     post "/checklists/:checklist_id/items", ItemController, :new_item
     delete "/items/:id", ItemController, :delete_item
     put "/items/:id", ItemController, :update_item
+
+    post "/users/", UserController, :create
+    get "/users", UserController, :index
   end
 end
