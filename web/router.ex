@@ -37,6 +37,6 @@ defmodule CheckListApi.Router do
 
     post "/users/", UserController, :create
     get "/users", UserController, :index
-    post "users/sign_in", UserController, :sign_in
+    post "/users/sign_in", UserController, :sign_in
   end
 end
