@@ -19,7 +19,6 @@ defmodule CheckListApi.User do
     Logger.debug "params: #{inspect params}"
     struct
     |> cast(params, [:first_name, :last_name, :email, :passwd_hash])
-    |> validate_required([:first_name, :last_name])
     |> unique_constraint(:email)
   end
 end
