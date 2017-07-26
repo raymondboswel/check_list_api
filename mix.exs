@@ -34,7 +34,7 @@ defmodule CheckListApi.Mixfile do
      {:phoenix_pubsub, "~> 1.0"},
      {:phoenix_ecto, "~> 3.0"},
      {:cors_plug, "~> 1.2"},
-     {:mariaex, ">= 0.0.0"},
+     {:mariaex, git: "https://github.com/xerions/mariaex", branch: "master", override: true},
      {:phoenix_html, "~> 2.6"},
      {:guardian, "~> 0.14"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
