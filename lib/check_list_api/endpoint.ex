@@ -38,6 +38,6 @@ defmodule CheckListApi.Endpoint do
     key: "_check_list_api_key",
     signing_salt: "pGkcFd2V"
 
-  plug CORSPlug, origin: ["http://localhost:8000"]
+  plug CORSPlug, origin: ["http://localhost:8000", "http://ec2-52-40-98-193.us-west-2.compute.amazonaws.com:80"]
   plug CheckListApi.Router
 end
